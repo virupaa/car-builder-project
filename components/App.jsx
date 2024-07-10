@@ -76,7 +76,17 @@ export default function App() {
       <SignedOut>
         <RedirectToSignIn />
       </SignedOut>
-      <SignedIn>
+      <SignedIn
+        appearance={{
+          elements: {
+            formButtonPrimary: {
+              backgroundColor: 'red',
+               // Optional: to ensure text is readable
+            },
+          },
+        }}
+      >
+
         <Header>
           <UserButton />
           <VehicleTitle savedVehicles={savedVehicles} setSavedVehicles={setSavedVehicles} setVehicle={setVehicle} />

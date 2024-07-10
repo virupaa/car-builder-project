@@ -22,6 +22,18 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.cl-formButtonPrimary {
+    font-size: 14px;
+    text-transform: none;
+    background-color: #611bbd;
+  }
+  
+  .cl-formButtonPrimary:hover,
+  .cl-formButtonPrimary:focus,
+  .cl-formButtonPrimary:active {
+    background-color: #49247a;
+  }
+
 /* forms */
 .field {
     margin: 20px 0;
