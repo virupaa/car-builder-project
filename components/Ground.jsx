@@ -39,8 +39,8 @@ function Ground(props) {
                     reflectorBlur={[400, 400]}
                 />
             </mesh>
-            <ambientLight intensity={0.11} />
-            <spotLight position={[5, 10, 5]} angle={0.2} penumbra={1} intensity={2} castShadow />
+            <ambientLight intensity={0.9} />
+            <spotLight position={[5, 10, 5]} angle={0.2} penumbra={1} intensity={5} castShadow />
         </>
     );
 }

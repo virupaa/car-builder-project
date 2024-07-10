@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 
 export default function SceneEnvironment({ performanceDegraded }) {
     const [environment, setEnvironment] = useState(() => {
-        return Cookies.get('environment') || '/assets/images/ground/skylit_garage_8k.hdr';
+        return Cookies.get('environment') || '/assets/images/ground/car-studio.png';
     });
     return (
         <>
@@ -36,7 +36,7 @@ export default function SceneEnvironment({ performanceDegraded }) {
             <Environment path={'assets/images/envmap/'} />
             
 
-            <Ground environment={environment} />
+            <Ground />
 
             {!performanceDegraded && (
                 <AccumulativeShadows temporal scale={10}>
