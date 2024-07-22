@@ -6,15 +6,12 @@ import RimIcon from '../assets/images/icons/Rim.svg';
 import TireIcon from '../assets/images/icons/Tire.svg';
 import ToolIcon from '../assets/images/icons/Tool.svg';
 import GearIcon from '../assets/images/icons/Gear.svg';
-import Actions from './Actions';
 import { useCookies } from 'react-cookie';
 
 function Editor(props) {
-    const { currentVehicle = { id: null }, setVehicle, cameraAutoRotate, setCameraAutoRotate, environment, setEnvironment } = props;
+    const { currentVehicle = { id: null }, setVehicle, cameraAutoRotate, setCameraAutoRotate, environment, setEnvironment, isActive } = props;
     const [selectedEnvironment, setSelectedEnvironment] = useState(environment);
-    const [isActive, setIsActive] = useState(true);
     const [cookies, setCookie] = useCookies(['environment']);
-
    
     const addonsExist = () => currentVehicle.id && Object.keys(vehicleConfigs.vehicles[currentVehicle.id].addons).length > 0;
 
@@ -23,7 +20,6 @@ function Editor(props) {
         
         setCookie('environment', selectedEnvironment, { path: '/' }); // Set the cookie with the new environment value
     };
-
 
     const groupObjectByKey = (object, key) => {
         const groups = {};
@@ -161,81 +157,120 @@ function Editor(props) {
                 {/* Secondary Rim Color */}
                 <div className='field field-rim-color'>
                     <label>Accent</label>
-                    <select value={currentVehicle.rim_color_secondary || ''} onChange={(e) => setVehicle({ rim_color_secondary: e.target.value })}>
+                    <select value={currentVehicle.rim_accent_color || ''} onChange={(e) => setVehicle({ rim_accent_color: e.target.value })}>
+                        <option value='chrome'>Chrome</option>
                         <option value='flat_black'>Flat Black</option>
                         <option value='gloss_black'>Gloss Black</option>
                         <option value='silver'>Silver</option>
-                        <option value='chrome'>Chrome</option>
-                        <option value='body'>Body match</option>
+                        <option value='matte_grey'>Matte Grey</option>
+                        <option value='brushed_aluminum'>Brushed Aluminum</option>
+                        <option value='gunmetal'>Gunmetal</option>
+                        <option value='bronze'>Bronze</option>
+                        <option value='gold'>Gold</option>
+                        <option value='blue'>Blue</option>
+                        <option value='red'>Red</option>
+                        <option value='white'>White</option>
                     </select>
-                </div>
-
-                {/* Rim Size */}
-                <div className='field field-rim-size'>
-                    <div className='field field-rim-diameter'>
-                        <label>Diameter</label>
-                        <InchRangeSelect value={currentVehicle.rim_diameter} min={14} max={24} onChange={(e) => setVehicle({ rim_diameter: e.target.value })} />
-                    </div>
-
-                    <div className='field field-rim-width'>
-                        <label>Width</label>
-                        <InchRangeSelect value={currentVehicle.rim_width} min={8} max={16} onChange={(e) => setVehicle({ rim_width: e.target.value })} />
-                    </div>
                 </div>
             </EditorSection>
 
             {/* Tires */}
             <EditorSection title='Tires' icon={<TireIcon className='icon' />}>
-                <div className='field field-tire-type'>
-                    <div className='field field-tire-type'>
-                        <label>Type</label>
-                        <GroupedSelect value={currentVehicle.tire} itemList={vehicleConfigs.wheels.tires} groupBy={'make'} onChange={(e) => setVehicle({ tire: e.target.value })} />
-                    </div>
+                <div className='field field-tire'>
+                    <label>Type</label>
+                    <GroupedSelect value={currentVehicle.tire} itemList={vehicleConfigs.wheels.tires} groupBy={'type'} onChange={(e) => setVehicle({ tire: e.target.value })} />
+                </div>
 
-                    <div className='field field-tire-size'>
-                        <label>Size</label>
-                        <InchRangeSelect value={currentVehicle.tire_diameter} min={30} max={40} onChange={(e) => setVehicle({ tire_diameter: e.target.value })} />
-                    </div>
+                {/* Width */}
+                <div className='field field-tire-width'>
+                    <label>Width</label>
+                    <select value={currentVehicle.tire_width || ''} onChange={(e) => setVehicle({ tire_width: e.target.value })}>
+                        <option value=''>Select a width</option>
+                        <option value='225'>225</option>
+                        <option value='235'>235</option>
+                        <option value='245'>245</option>
+                        <option value='255'>255</option>
+                        <option value='265'>265</option>
+                        <option value='275'>275</option>
+                        <option value='285'>285</option>
+                        <option value='295'>295</option>
+                        <option value='305'>305</option>
+                        <option value='315'>315</option>
+                        <option value='325'>325</option>
+                        <option value='335'>335</option>
+                        <option value='345'>345</option>
+                        <option value='355'>355</option>
+                        <option value='365'>365</option>
+                        <option value='375'>375</option>
+                    </select>
+                </div>
+
+                {/* Height */}
+                <div className='field field-tire-height'>
+                    <label>Profile</label>
+                    <select value={currentVehicle.tire_height || ''} onChange={(e) => setVehicle({ tire_height: e.target.value })}>
+                        <option value=''>Select a profile</option>
+                        <option value='20'>20</option>
+                        <option value='25'>25</option>
+                        <option value='30'>30</option>
+                        <option value='35'>35</option>
+                        <option value='40'>40</option>
+                        <option value='45'>45</option>
+                        <option value='50'>50</option>
+                        <option value='55'>55</option>
+                        <option value='60'>60</option>
+                        <option value='65'>65</option>
+                        <option value='70'>70</option>
+                        <option value='75'>75</option>
+                        <option value='80'>80</option>
+                        <option value='85'>85</option>
+                    </select>
+                </div>
+
+                {/* Rim Size */}
+                <div className='field field-tire-size'>
+                    <label>Size</label>
+                    <InchRangeSelect value={currentVehicle.tire_size} min={16} max={30} onChange={(e) => setVehicle({ tire_size: e.target.value })} />
                 </div>
             </EditorSection>
 
+            {/* Addons */}
             {addonsExist() && (
                 <EditorSection title='Addons' icon={<ToolIcon className='icon' />}>
-                    {Object.keys(vehicleConfigs.vehicles[currentVehicle.id].addons).map((addon) => (
-                        <div key={addon} className={`field field-${addon}`}>
-                            <label>{vehicleConfigs.vehicles[currentVehicle.id].addons[addon].name}</label>
-                            <select value={currentVehicle.addons[addon]} required onChange={(e) => setVehicle({ addons: { ...currentVehicle.addons, [addon]: e.target.value } })}>
-                                {!vehicleConfigs.vehicles[currentVehicle.id].addons[addon].required && <option value=''>None</option>}
-                                {Object.keys(vehicleConfigs.vehicles[currentVehicle.id].addons[addon].options).map((option) => (
-                                    <option key={option} value={option}>
-                                        {vehicleConfigs.vehicles[currentVehicle.id].addons[addon].options[option].name}
-                                    </option>
-                                ))}
-                            </select>
+                    <div className='field field-addon'>
+                        <label>Add-ons</label>
+                        <div className='field-addon-buttons'>
+                            {Object.keys(vehicleConfigs.vehicles[currentVehicle.id].addons).map((addon) => (
+                                <button
+                                    key={addon}
+                                    className={currentVehicle.addons.includes(addon) ? 'active' : ''}
+                                    onClick={() => {
+                                        const newAddons = currentVehicle.addons.includes(addon)
+                                            ? currentVehicle.addons.filter((a) => a !== addon)
+                                            : [...currentVehicle.addons, addon];
+                                        setVehicle({ addons: newAddons });
+                                    }}
+                                >
+                                    {vehicleConfigs.vehicles[currentVehicle.id].addons[addon].name}
+                                </button>
+                            ))}
                         </div>
-                    ))}
+                    </div>
                 </EditorSection>
             )}
 
-            {/* Environment Settings */}
-            <EditorSection title='Environment' icon={<GearIcon className='icon' />}>
-                <div className='field field-environment'>
-                    <label>HDR Environment</label>
-                    <select value={environment} onChange={handleEnvironmentChange}>
-                        <option value='/assets/images/ground/skylit_garage_8k.hdr'>Skylit Garage</option>
-                        <option value='/assets/images/ground/garage_8k.hdr'>Venice Sunset</option>
-                    </select>
+            {/* Advanced Options */}
+            <EditorSection title='Advanced Options' icon={<GearIcon className='icon' />}>
+                <div className='field field-advanced'>
+                    <label>Auto-Rotate</label>
+                    <input
+                        type="checkbox"
+                        checked={cameraAutoRotate}
+                        onChange={(e) => setCameraAutoRotate(e.target.checked)}
+                    />
                 </div>
+                
             </EditorSection>
-
-            {/* Scene */}
-            <EditorSection title='Options' icon={<GearIcon className='icon' />}>
-                <div className='field field-camera-autorotate'>
-                    <input type='checkbox' id='camera-autorotate' checked={cameraAutoRotate} onChange={(e) => setCameraAutoRotate(e.target.checked)} />
-                    <label htmlFor='camera-autorotate'>Auto Rotate</label>
-                </div>
-            </EditorSection>
-        
         </div>
     );
 }

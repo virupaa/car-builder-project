@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+.custom-user-button {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+
 html {
     position: relative;
     height: 100%;
@@ -147,7 +155,7 @@ input[type='color']::-webkit-color-swatch {
     position: absolute;
     top: 0;
     height: 60px;
-    width: 15%;
+    width: 100%;
     border: none;
     z-index: 999;
     
@@ -361,6 +369,7 @@ input[type='color']::-webkit-color-swatch {
     color: #ccc;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+    transition: left 0.3s ease-in-out;
 }
 
 #editor::-webkit-scrollbar {
@@ -428,6 +437,22 @@ input[type='color']::-webkit-color-swatch {
 #vehicle canvas {
     outline: none !important;
 }
+
+#editor {
+    position: fixed; /* Make it fixed so it can slide in and out */
+    left: -300px; /* Start off-screen */
+    top: 0;
+    width: 240px;
+    height: 100%;
+    background: #333; /* Dark background */
+    transition: left 0.3s ease-in-out; /* Transition effect */
+}
+
+#editor.visible {
+    left:0; /* Show when active */
+}
+
+
 @media (min-aspect-ratio: 5/4) {
     #vehicle {
         bottom: 0;

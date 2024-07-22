@@ -9,6 +9,7 @@ import VehicleTitle from './VehicleTitle';
 import HomePage from './HomePage';
 
 export default function App() {
+  
   // Saved vehicles.
   const [savedVehicles, setSavedVehicles] = useState(() => {
     // Get from local storage or null.
@@ -88,18 +89,25 @@ export default function App() {
       >
 
         <Header>
-          <UserButton />
+        <UserButton className="custom-user-button" />
           <VehicleTitle savedVehicles={savedVehicles} setSavedVehicles={setSavedVehicles} setVehicle={setVehicle} />
         </Header>
         <Canvas currentVehicle={currentVehicle} setVehicle={setVehicle} cameraAutoRotate={cameraAutoRotate} environment={environment} />
         <Editor
-          isActive={true}
           currentVehicle={currentVehicle}
           setVehicle={setVehicle}
           cameraAutoRotate={cameraAutoRotate}
           setCameraAutoRotate={setCameraAutoRotate}
+          isActive={isActive} 
+          setIsActive={setIsActive}
         />
-        <Actions currentVehicle={currentVehicle} toggleSidebar={toggleSidebar} savedVehicles={savedVehicles} setSavedVehicles={setSavedVehicles} />
+        <Actions 
+        currentVehicle={currentVehicle} 
+        toggleSidebar={toggleSidebar} 
+        savedVehicles={savedVehicles} 
+        setSavedVehicles={setSavedVehicles} 
+        isActive={isActive}
+        setIsActive={setIsActive}/>
       </SignedIn>
     </div>
   );

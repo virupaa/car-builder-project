@@ -1,7 +1,12 @@
 import React, { useCallback } from 'react';
 import Swal from 'sweetalert2';
 
-const Actions = ({ currentVehicle, savedVehicles, setSavedVehicles, toggleSidebar }) => {
+const Actions = ({ currentVehicle, savedVehicles, setSavedVehicles, isActive, setIsActive }) => {
+
+    const toggleSidebar = () => {
+        setIsActive(!isActive);
+    };
+
     // Save current vehicle to local storage.
     const saveVehicle = () => {
         // Get the name of the existing vehicle, if available.
@@ -115,7 +120,7 @@ const Actions = ({ currentVehicle, savedVehicles, setSavedVehicles, toggleSideba
             <button onClick={saveVehicle}>Save</button>
             <button onClick={shareVehicle}>Share</button>
             <button onClick={takeScreenshot}>Screenshot</button>
-            <button onClick={toggleSidebar}>Hide/Show Side Nav</button>
+            <button onClick={toggleSidebar}>{isActive ? 'Hide Sidebar' : 'Show Sidebar'}</button>
         </div>
     );
 };
