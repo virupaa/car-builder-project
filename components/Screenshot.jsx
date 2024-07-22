@@ -15,7 +15,7 @@ export default function Screenshot() {
 
         // Download image.
         var link = document.createElement('a')
-        link.download = '4x4builder.png'
+        link.download = 'CarBuilder.png'
         link.href = gl.domElement.toDataURL('image/png')
         link.click()
 

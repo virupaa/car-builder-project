@@ -156,16 +156,16 @@ const vehicleConfigs = {
             addons: {},
         },
 
-        audi_a8: {
-            name: 'Audi A8',
-            make: 'Audi',
-            model: 'assets/models/vehicles/audi/audiA8.gltf',
-            lift: 7,
-            wheelbase: 2.95,
-            spare: [0, 0.7, -2.35],
-            default_addons: {},
-            addons: {},
-        },
+        // audi_a8: {
+        //     name: 'Audi A8',
+        //     make: 'Audi',
+        //     model: 'assets/models/vehicles/audi/audiA8.gltf',
+        //     lift: 7,
+        //     wheelbase: 2.95,
+        //     spare: [0, 0.7, -2.35],
+        //     default_addons: {},
+        //     addons: {},
+        // },
 
     },
     wheels: {
